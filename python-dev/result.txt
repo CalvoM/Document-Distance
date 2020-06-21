@@ -1,0 +1,94 @@
+Timer unit: 1e-06 s
+
+Total time: 0.033015 s
+File: main.py
+Function: get_file_lines at line 6
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     6                                           @profile
+     7                                           def get_file_lines(filename):
+     8         2         10.0      5.0      0.0      word_list: List = []
+     9         2       1121.0    560.5      3.4      with open(file= filename, mode='r', encoding='windows-1252') as f:
+    10         2      31879.0  15939.5     96.6          word_list = f.readlines()
+    11                                               
+    12         2          5.0      2.5      0.0      return word_list
+
+Total time: 12.0909 s
+File: main.py
+Function: get_words_from_file_lines at line 15
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    15                                           @profile
+    16                                           def get_words_from_file_lines(file_lines):
+    17         2          2.0      1.0      0.0      words_list: List =[]
+    18     61992      43008.0      0.7      0.4      for line in file_lines:
+    19     61990   12047881.0    194.4     99.6          words_list += get_words_from_line(line)
+    20                                           
+    21         2          1.0      0.5      0.0      return words_list
+
+Total time: 6.8079 s
+File: main.py
+Function: get_words_from_line at line 24
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    24                                           @profile
+    25                                           def get_words_from_line(line: str):
+    26     61990      40925.0      0.7      0.6      line_word_list: List = []
+    27     61990      28692.0      0.5      0.4      word_list: List = []
+    28   3371891    1583854.0      0.5     23.3      for ch in line:
+    29   3309901    1738642.0      0.5     25.5          if ch.isalnum():
+    30   2585478    1396782.0      0.5     20.5              word_list.append(ch)
+    31    724423     442715.0      0.6      6.5          elif len(word_list) > 0:
+    32    606722     440734.0      0.7      6.5              word = ''.join(word_list)
+    33    606722     420466.0      0.7      6.2              word.lower()
+    34    606722     357571.0      0.6      5.3              line_word_list.append(word)
+    35    606722     325004.0      0.5      4.8              word_list = []
+    36     61990      32519.0      0.5      0.5      return line_word_list
+
+Total time: 191.464 s
+File: main.py
+Function: get_word_frequency at line 39
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    39                                           @profile
+    40                                           def get_word_frequency(word_list: List):
+    41         2          3.0      1.5      0.0      freq: List = []
+    42         2      51160.0  25580.0      0.0      doc_set: Set = set(word_list)
+    43     22077     187735.0      8.5      0.1      for word in doc_set:
+    44     22075  191224865.0   8662.5     99.9          freq.append((word,word_list.count(word)))
+    45                                           
+    46         2          2.0      1.0      0.0      return freq
+
+Total time: 223.047 s
+File: main.py
+Function: inner_product at line 49
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    49                                           @profile
+    50                                           def inner_product(L1: List, L2: List):
+    51         3          3.0      1.0      0.0      sum=0
+    52     35676      32960.0      0.9      0.0      for word, count in L1:
+    53 225194175  120815470.0      0.5     54.2          for word2, count2 in L2:
+    54 225184925  102101452.0      0.5     45.8              if word == word2:
+    55     26423      64563.0      2.4      0.0                  sum += count * count2
+    56     26423      32937.0      1.2      0.0                  break
+    57                                               
+    58         3          7.0      2.3      0.0      return sum
+
+Total time: 368.492 s
+File: main.py
+Function: get_diff_degree at line 60
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    60                                           @profile
+    61                                           def get_diff_degree(f1,f2):
+    62         1  159334726.0 159334726.0     43.2      numerator = inner_product(f1,f2)
+    63         1  209157173.0 209157173.0     56.8      denominator = math.sqrt(inner_product(f1,f1) * inner_product(f2,f2))
+    64         1         62.0     62.0      0.0      return math.acos(numerator/denominator)
+
